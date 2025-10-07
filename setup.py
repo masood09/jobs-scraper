@@ -13,7 +13,7 @@ setup(
         "dev": [
             "pytest==7.4.4",
             "pytest-cov==4.1.0",
-            "flake8==6.1.0",
+            "flake8==7.3.0",
             "black==23.9.1",
             "isort==5.12.0",
             "python-dotenv==1.0.0",
