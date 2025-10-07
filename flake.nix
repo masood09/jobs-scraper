@@ -23,7 +23,7 @@
             python3 -m venv .venv
             source .venv/bin/activate
             pip install --upgrade pip
-            pip install -r requirements/dev.txt
+            pip install -r requirements/requirements.dev.txt
             echo "Environment ready! Run 'python scripts/run.py dev' to start the service."
           '';
         };

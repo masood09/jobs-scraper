@@ -6,7 +6,7 @@ A Flask-based API service for scraping job listings with authorization token sup
 
 1. **Install dependencies:**
    ```bash
-   pip install -r requirements/dev.txt
+   pip install -r requirements/requirements.dev.txt
    ```
 
 2. **Generate API token:**
@@ -62,10 +62,10 @@ jobscraper-python/
 │   ├── test_config.py           # Configuration tests
 │   └── test_jobspy.py           # Jobspy integration tests
 ├── requirements/                # Dependency management
-│   ├── base.txt                 # Core dependencies
-│   ├── dev.txt                  # Development dependencies
-│   ├── prod.txt                 # Production dependencies
-│   └── test.txt                 # Test dependencies
+│   ├── requirements.base.txt    # Core dependencies
+│   ├── requirements.dev.txt     # Development dependencies
+│   ├── requirements.prod.txt    # Production dependencies
+│   └── requirements.test.txt    # Test dependencies
 ├── requirements.txt             # Legacy requirements (points to base.txt)
 ├── pyproject.toml               # Python project configuration
 ├── .flake8                      # Code style configuration
@@ -79,19 +79,19 @@ jobscraper-python/
 
    **For development (recommended):**
    ```bash
-   pip install -r requirements/dev.txt
+   pip install -r requirements/requirements.dev.txt
    ```
    *Includes core application dependencies plus development tools (testing, linting, formatting)*
 
    **For production:**
    ```bash
-   pip install -r requirements/prod.txt
+   pip install -r requirements/requirements.prod.txt
    ```
    *Includes core application dependencies plus production server (gunicorn)*
 
    **Core dependencies only:**
    ```bash
-   pip install -r requirements/base.txt
+   pip install -r requirements/requirements.base.txt
    ```
    *Only the essential application dependencies without dev/prod extras*
 
@@ -115,10 +115,10 @@ The project uses a modular approach to dependencies management:
 
 ### Requirements Files Breakdown:
 
-- **requirements/base.txt**: Core application dependencies (Flask, python-jobspy, etc.)
-- **requirements/dev.txt**: Includes base.txt + development tools (pytest, flake8, black)
-- **requirements/prod.txt**: Includes base.txt + production server (gunicorn)
-- **requirements/test.txt**: Testing-specific dependencies (pytest, pytest-cov)
+- **requirements/requirements.base.txt**: Core application dependencies (Flask, python-jobspy, etc.)
+- **requirements/requirements.dev.txt**: Includes base.txt + development tools (pytest, flake8, black)
+- **requirements/requirements.prod.txt**: Includes base.txt + production server (gunicorn)
+- **requirements/requirements.test.txt**: Testing-specific dependencies (pytest, pytest-cov)
 - **requirements.txt**: Legacy file that references base.txt for compatibility
 
 This structure allows for:
