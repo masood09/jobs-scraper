@@ -6,19 +6,19 @@ This document explains how to run the JobScraper API in different modes.
 
 ### Development Environment
 ```bash
-pip install -r requirements/dev.txt
+pip install -r requirements/requirements.dev.txt
 ```
 *Includes core application dependencies plus development tools (testing, linting, formatting)*
 
 ### Production Environment
 ```bash
-pip install -r requirements/prod.txt
+pip install -r requirements/requirements.prod.txt
 ```
 *Includes core application dependencies plus production server (gunicorn)*
 
 ### Core Dependencies Only
 ```bash
-pip install -r requirements/base.txt
+pip install -r requirements/requirements.base.txt
 ```
 *Only the essential application dependencies without dev/prod extras*
 
