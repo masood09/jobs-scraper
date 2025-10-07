@@ -23,16 +23,14 @@ def create_test_app():
         """Identity function - no authentication."""
         return f
 
-    with patch.dict("sys.modules", {"jobspy": None}), patch(
-        "jobscraper.auth.require_token", mock_decorator
-    ), patch("jobscraper.config.API_ACCESS_TOKEN", "test-token"), patch(
-        "jobscraper.config.DEBUG_MODE", False
-    ), patch(
-        "jobscraper.config.LOG_TO_FILE", False
-    ), patch(
-        "jobscraper.config.LOG_LEVEL_VALUE", 20
-    ), patch(
-        "jobscraper.config.LOG_FILE_PATH", "test.log"
+    with (
+        patch.dict("sys.modules", {"jobspy": None}),
+        patch("jobscraper.auth.require_token", mock_decorator),
+        patch("jobscraper.config.API_ACCESS_TOKEN", "test-token"),
+        patch("jobscraper.config.DEBUG_MODE", False),
+        patch("jobscraper.config.LOG_TO_FILE", False),
+        patch("jobscraper.config.LOG_LEVEL_VALUE", 20),
+        patch("jobscraper.config.LOG_FILE_PATH", "test.log"),
     ):
         # Import the app module - the decorator will be mocked
         from jobscraper.app import app as flask_app

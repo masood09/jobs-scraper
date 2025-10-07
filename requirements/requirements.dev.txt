@@ -1,11 +1,11 @@
 # Development dependencies
 # Includes base dependencies plus development tools plus testing tools
 
--r base.txt
+-r requirements.base.txt
 
 # Testing tools
 
--r test.txt
+-r requirements.test.txt
 
 # Development and testing tools
 flake8==7.3.0

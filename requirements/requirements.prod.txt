@@ -1,6 +1,6 @@
 # Production dependencies
 # Includes base dependencies plus production server
 
--r base.txt
+-r requirements.base.txt
 
 gunicorn==23.0.0

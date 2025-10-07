@@ -1,6 +1,7 @@
 """
 Mock jobspy module for testing.
 """
+
 import pandas as pd
 
 
