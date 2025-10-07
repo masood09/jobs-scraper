@@ -2,4 +2,4 @@
 # Includes testing frameworks and utilities
 
 pytest==8.4.2
-pytest-cov==4.1.0
+pytest-cov==7.0.0
