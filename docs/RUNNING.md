@@ -2,6 +2,26 @@
 
 This document explains how to run the JobScraper API in different modes.
 
+## Installation
+
+### Development Environment
+```bash
+pip install -r requirements/dev.txt
+```
+*Includes core application dependencies plus development tools (testing, linting, formatting)*
+
+### Production Environment
+```bash
+pip install -r requirements/prod.txt
+```
+*Includes core application dependencies plus production server (gunicorn)*
+
+### Core Dependencies Only
+```bash
+pip install -r requirements/base.txt
+```
+*Only the essential application dependencies without dev/prod extras*
+
 ## Development Mode (Recommended for development)
 
 Uses Flask's built-in development server with auto-reload and debug features.

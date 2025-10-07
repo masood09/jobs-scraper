@@ -36,9 +36,54 @@ jobscraper-python/
 ## Setup
 
 1. Install the dependencies:
+
+   **For development (recommended):**
+   ```bash
+   pip install -r requirements/dev.txt
+   ```
+   *Includes core application dependencies plus development tools (testing, linting, formatting)*
+
+   **For production:**
+   ```bash
+   pip install -r requirements/prod.txt
+   ```
+   *Includes core application dependencies plus production server (gunicorn)*
+
+   **Core dependencies only:**
+   ```bash
+   pip install -r requirements/base.txt
+   ```
+   *Only the essential application dependencies without dev/prod extras*
+
+   **Legacy compatibility:**
    ```bash
    pip install -r requirements.txt
    ```
+   *Points to base.txt for backward compatibility*
+
+## Modular Requirements Structure
+
+The project uses a modular approach to dependencies management:
+
+### Benefits of Modular Requirements:
+
+- **Separation of Concerns**: Different environments have different dependency needs
+- **Reduced Bloat**: Production environments don't install development tools
+- **Security**: Production has fewer packages, reducing attack surface
+- **Version Control**: Clear separation between core, development, and production dependencies
+- **Dependency Tree**: Easy to understand what each environment requires
+
+### Requirements Files Breakdown:
+
+- **requirements/base.txt**: Core application dependencies (Flask, python-jobspy, etc.)
+- **requirements/dev.txt**: Includes base.txt + development tools (pytest, flake8, black)
+- **requirements/prod.txt**: Includes base.txt + production server (gunicorn)
+- **requirements.txt**: Legacy file that references base.txt for compatibility
+
+This structure allows for:
+- Cleaner container images (use prod.txt for Docker)
+- Faster CI/CD pipelines (dev dependencies only in test environments)
+- Easier dependency management and updates
 
 2. Generate a secure API access token and set it as an environment variable:
    
