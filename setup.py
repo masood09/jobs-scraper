@@ -6,7 +6,7 @@ setup(
     package_dir={"": "src"},
     packages=find_packages(where="src"),
     install_requires=[
-        "Flask==2.3.2",
+        "Flask==2.3.3",
         "pandas",
     ],
     extras_require={
