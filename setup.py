@@ -16,7 +16,7 @@ setup(
             "flake8==7.3.0",
             "black==25.9.0",
             "isort==6.1.0",
-            "python-dotenv==1.0.0",
+            "python-dotenv==1.1.1",
             "testfixtures==9.1.0",
         ],
     },
