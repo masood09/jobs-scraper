@@ -14,9 +14,12 @@ def run_development():
     print("Starting in development mode...")
     os.environ["DEBUG_MODE"] = "True"
     os.environ["LOG_LEVEL"] = "DEBUG"
-    
+
     # Run the package directly
-    os.execvp("python", ["python", "-m", "src.jobscraper", "--port", "8080", "--host", "127.0.0.1"])
+    os.execvp(
+        "python",
+        ["python", "-m", "src.jobscraper", "--port", "8080", "--host", "127.0.0.1"],
+    )
 
 
 def run_production():

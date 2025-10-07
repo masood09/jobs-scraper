@@ -28,14 +28,14 @@ Uses Flask's built-in development server with auto-reload and debug features.
 
 ### Using run script:
 ```bash
-python run.py dev
+python scripts/run.py dev
 ```
 
 ### Manual method:
 ```bash
 export DEBUG_MODE=True
 export LOG_LEVEL=DEBUG
-python app.py
+python -m src.jobscraper
 ```
 
 **Features:**
@@ -50,14 +50,14 @@ Uses Gunicorn WSGI server for production deployment.
 
 ### Using run script:
 ```bash
-python run.py prod
+python scripts/run.py prod
 ```
 
 ### Manual method:
 ```bash
 export DEBUG_MODE=False
 export LOG_LEVEL=INFO
-gunicorn app:app -c gunicorn.conf.py
+gunicorn src.jobscraper.app:app -c config/gunicorn.conf.py
 ```
 
 **Features:**
@@ -91,22 +91,22 @@ The `gunicorn.conf.py` file contains production-optimized settings:
 ### Development:
 ```bash
 # Simple way
-export DEBUG_MODE=True && python app.py
+export DEBUG_MODE=True && python -m src.jobscraper
 
 # Using run script
-python run.py dev
+python scripts/run.py dev
 ```
 
 ### Production:
 ```bash
 # Simple way
-export DEBUG_MODE=False && gunicorn app:app -b 0.0.0.0:8080 -w 4
+export DEBUG_MODE=False && gunicorn src.jobscraper.app:app -b 0.0.0.0:8080 -w 4
 
 # Using configuration file
-gunicorn app:app -c gunicorn.conf.py
+gunicorn src.jobscraper.app:app -c config/gunicorn.conf.py
 
 # Using run script
-python run.py prod
+python scripts/run.py prod
 ```
 
 ## Port & Host Configuration
@@ -115,14 +115,13 @@ The application runs on port 8080 and localhost (127.0.0.1) by default. To chang
 
 ```bash
 # For Flask development server (custom port and host)
-python app.py --port 9000 --host 0.0.0.0
+python -m src.jobscraper --port 9000 --host 0.0.0.0
 
 # For Gunicorn (custom port)
-gunicorn app:app -b 0.0.0.0:9000 -c gunicorn.conf.py
+gunicorn src.jobscraper.app:app -b 0.0.0.0:9000 -c config/gunicorn.conf.py
 
 # For external access, bind to 0.0.0.0
-export FLASK_RUN_HOST=0.0.0.0  # For Flask
-gunicorn app:app -b 0.0.0.0:8080  # For Gunicorn
+gunicorn src.jobscraper.app:app -b 0.0.0.0:8080 -c config/gunicorn.conf.py
 ```
 
 ## Notes

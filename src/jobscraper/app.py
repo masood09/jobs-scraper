@@ -106,6 +106,19 @@ def scrape_jobs_endpoint():
 
     except Exception as e:
         logger.error(f"Failed to scrape jobs: {str(e)}", exc_info=True)
+
+        # Check if this is a JSON parsing error (BadRequest from Flask/Werkzeug)
+        if hasattr(e, "code") and e.code == 400:
+            return (
+                jsonify(
+                    {
+                        "error": "Invalid request",
+                        "message": "Request body must be JSON with scraping parameters",
+                    }
+                ),
+                400,
+            )
+
         return (
             jsonify(
                 {"success": False, "error": str(e), "message": "Failed to scrape jobs"}

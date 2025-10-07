@@ -1,11 +1,13 @@
 # Development dependencies
-# Includes base dependencies plus development tools
+# Includes base dependencies plus development tools plus testing tools
 
 -r base.txt
 
+# Testing tools
+
+-r test.txt
+
 # Development and testing tools
-pytest==7.4.3
-pytest-cov==4.1.0
 flake8==6.1.0
 black==23.9.1
 isort==5.12.0

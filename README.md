@@ -2,6 +2,30 @@
 
 A Flask-based API service for scraping job listings with authorization token support.
 
+## Quick Start
+
+1. **Install dependencies:**
+   ```bash
+   pip install -r requirements/dev.txt
+   ```
+
+2. **Generate API token:**
+   ```bash
+   export API_ACCESS_TOKEN=$(openssl rand -base64 64)
+   ```
+
+3. **Run the service:**
+   ```bash
+   python -m src.jobscraper
+   # or using the run script
+   python scripts/run.py dev
+   ```
+
+4. **Test the API:**
+   ```bash
+   curl http://127.0.0.1:8080/health
+   ```
+
 ## Features
 
 - RESTful API endpoints
@@ -16,20 +40,36 @@ A Flask-based API service for scraping job listings with authorization token sup
 
 ```
 jobscraper-python/
-├── src/
-│   └── jobscraper/
+├── src/                         # Source code directory
+│   └── jobscraper/              # Main package
 │       ├── __init__.py          # Package initialization
 │       ├── __main__.py          # Main entry point
 │       ├── app.py               # Main Flask application
 │       ├── auth.py              # Authentication module
 │       └── config.py            # Configuration settings
-├── scripts/
+├── scripts/                     # Utility scripts
 │   └── run.py                   # Convenience run script
-├── config/
+├── config/                      # Configuration files
 │   └── gunicorn.conf.py         # Gunicorn configuration
-├── requirements.txt             # Main requirements
+├── docs/                        # Documentation
+│   ├── CODING_CONVENTIONS.md    # Coding standards
+│   └── RUNNING.md               # Running instructions
+├── tests/                       # Test files
+│   ├── __init__.py
+│   ├── conftest.py              # Test configuration
+│   ├── test_app.py              # Application tests
+│   ├── test_auth.py             # Authentication tests
+│   ├── test_config.py           # Configuration tests
+│   └── test_jobspy.py           # Jobspy integration tests
+├── requirements/                # Dependency management
+│   ├── base.txt                 # Core dependencies
+│   ├── dev.txt                  # Development dependencies
+│   ├── prod.txt                 # Production dependencies
+│   └── test.txt                 # Test dependencies
+├── requirements.txt             # Legacy requirements (points to base.txt)
 ├── pyproject.toml               # Python project configuration
 ├── .flake8                      # Code style configuration
+├── setup.py                     # Package setup script
 └── README.md                    # This file
 ```
 
@@ -78,6 +118,7 @@ The project uses a modular approach to dependencies management:
 - **requirements/base.txt**: Core application dependencies (Flask, python-jobspy, etc.)
 - **requirements/dev.txt**: Includes base.txt + development tools (pytest, flake8, black)
 - **requirements/prod.txt**: Includes base.txt + production server (gunicorn)
+- **requirements/test.txt**: Testing-specific dependencies (pytest, pytest-cov)
 - **requirements.txt**: Legacy file that references base.txt for compatibility
 
 This structure allows for:
@@ -105,7 +146,7 @@ This structure allows for:
 python -m src.jobscraper --port 8080 --host 127.0.0.1
 
 # Or using the convenience script
-python scripts/run.py
+python scripts/run.py dev
 ```
 
 ### Production Mode (Using Gunicorn)
@@ -283,6 +324,88 @@ The API access token is configured through the `API_ACCESS_TOKEN` environment va
 - `LOG_TO_FILE` - Optional: True/False to enable file logging (default: False)
 - `LOG_FILE_PATH` - Optional: Path to log file (default: app.log)
 
+## Testing
+
+The project includes comprehensive test coverage using pytest.
+
+### Running Tests
+
+**Run all tests:**
+```bash
+pytest
+```
+
+**Run tests with coverage report:**
+```bash
+pytest --cov=src.jobscraper
+```
+
+**Run specific test files:**
+```bash
+pytest tests/test_app.py
+pytest tests/test_auth.py
+pytest tests/test_config.py
+```
+
+**Run tests with verbose output:**
+```bash
+pytest -v
+```
+
+### Test Structure
+
+Tests are located in the `tests/` directory and include:
+- `test_app.py` - Application endpoint tests
+- `test_auth.py` - Authentication middleware tests
+- `test_config.py` - Configuration validation tests
+- `test_jobspy.py` - Jobspy integration tests
+- `conftest.py` - Test fixtures and configuration
+
+## Deployment
+
+### Production Deployment
+
+For production deployment, use Gunicorn with the production configuration:
+
+```bash
+# Install production dependencies
+pip install -r requirements/prod.txt
+
+# Set your API access token
+export API_ACCESS_TOKEN="your-secure-token-here"
+
+# Run with Gunicorn using the configuration file
+gunicorn src.jobscraper.app:app -c config/gunicorn.conf.py
+
+# Or run with explicit settings
+gunicorn src.jobscraper.app:app \
+  --bind 0.0.0.0:8080 \
+  --workers 4 \
+  --worker-class gthread \
+  --threads 2 \
+  --timeout 30 \
+  --access-logfile - \
+  --error-logfile -
+```
+
+### Environment Configuration
+
+Set the following environment variables for production:
+
+```bash
+export API_ACCESS_TOKEN="your-generated-secure-token"
+export DEBUG_MODE=False
+export LOG_LEVEL=INFO
+export LOG_TO_FILE=False
+```
+
+### Process Management
+
+For production environments, consider using a process manager like:
+- **systemd** for Linux systems
+- **supervisord** for process management
+- **Docker** for containerized deployment
+
 ## Development
 
 The project follows proper Python packaging conventions:
@@ -292,10 +415,14 @@ The project follows proper Python packaging conventions:
 - Includes `__init__.py` and `__main__.py` files
 - Follows flake8 coding standards
 - Uses pyproject.toml for modern Python packaging
+- Includes comprehensive test suite
 
 ## Contributing
 
 1. Follow the coding conventions in `.flake8`
 2. Use the proper package structure
 3. Test imports work correctly with the new structure
-4. Update documentation when making changes
+4. Write tests for new features and bug fixes
+5. Ensure all tests pass before submitting changes
+6. Update documentation when making changes
+7. Follow the test-driven development approach
