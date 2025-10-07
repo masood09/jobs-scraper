@@ -1,0 +1,30 @@
+[flake8]
+# Based on CODING_CONVENTIONS.md standards
+
+# Line length - matches Black's default
+max-line-length = 88
+
+# Ignore specific error codes
+# E203: Whitespace before ':' (not compatible with Black)
+# W503: Line break before binary operator (not compatible with Black)
+# E501: Line too long (handled by Black formatting)
+ignore = E203, W503, E501
+
+# Exclude directories and files
+exclude =
+    .git,
+    __pycache__,
+    .venv,
+    venv,
+    env,
+    .eggs,
+    *.egg,
+    build,
+    dist,
+    docs
+
+# Maximum complexity (McCabe complexity)
+max-complexity = 10
+
+# Select which error codes to check
+select = E, W, F, C, B

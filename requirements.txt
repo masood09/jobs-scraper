@@ -1,0 +1,11 @@
+# JobScraper Requirements
+# Use one of the specific requirement files in the requirements/ directory
+#
+# For development: pip install -r requirements/dev.txt
+# For production:  pip install -r requirements/prod.txt
+# Core only:      pip install -r requirements/base.txt
+
+# This file exists for compatibility with tools that expect requirements.txt
+# in the root directory. Please use the specific requirement files above.
+
+-r requirements/base.txt

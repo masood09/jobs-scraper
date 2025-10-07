@@ -1,0 +1,3 @@
+# Core application dependencies
+Flask==2.3.2
+python-jobspy==1.1.79
