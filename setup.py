@@ -15,7 +15,7 @@ setup(
             "pytest-cov==4.1.0",
             "flake8==6.1.0",
             "black==23.9.1",
-            "isort==5.12.0",
+            "isort==6.1.0",
             "python-dotenv==1.0.0",
             "testfixtures==7.1.0",
         ],
