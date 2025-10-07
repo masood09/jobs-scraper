@@ -1,17 +1,6 @@
 {
   "extends": [
-    "config:base"
-  ],
-  "python": {
-    "fileMatch": ["(^|/)(requirements|constraints|setup)\.txt$"]
-  },
-  "regexManagers": [
-    {
-      "fileMatch": ["(^|/)requirements/.*\.txt$"],
-      "matchStrings": [
-        "^(?<depName>[^\s=><!#]+)(?:[\s]*(?:==|>=|<=|~=|[><!]=){1}[\s]*(?<currentValue>[^\s]+))?"
-      ],
-      "datasourceTemplate": "pypi"
-    }
+    "config:base",
+    "preset:pip-compile"
   ]
 }
