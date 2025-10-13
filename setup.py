@@ -17,7 +17,7 @@ setup(
             "black==25.9.0",
             "isort==6.1.0",
             "python-dotenv==1.1.1",
-            "testfixtures==9.1.0",
+            "testfixtures==9.2.0",
         ],
     },
     python_requires=">=3.9",
