@@ -18,32 +18,9 @@ profile = "black"
 line_length = 88
 known_first_party = ["jobscraper"]  # Update if you create a package
 
-[tool.flake8]
-max-line-length = 88
-ignore = ["E203", "W503", "E501"]
-exclude = [
-    ".git",
-    "__pycache__",
-    ".venv",
-    "venv",
-    "env",
-    ".eggs",
-    "*.egg",
-    "build",
-    "dist",
-    "docs",
-]
-max-complexity = 10
-select = ["E", "W", "F", "C", "B"]
-show-source = true
-
 # Optional: pytest configuration if you add tests later
 # [tool.pytest.ini_options]
 # testpaths = ["tests"]
 # python_files = ["test_*.py"]
 # python_classes = ["Test*"]
 # python_functions = ["test_*"]
-
-[build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"

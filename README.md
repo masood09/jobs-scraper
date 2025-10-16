@@ -122,7 +122,7 @@ The project uses a modular approach to dependencies management:
 - **requirements.txt**: Legacy file that references base.txt for compatibility
 
 This structure allows for:
-- Cleaner container images (use prod.txt for Docker)
+- Cleaner container images (use requirements/requirements.prod.txt for Docker)
 - Faster CI/CD pipelines (dev dependencies only in test environments)
 - Easier dependency management and updates
 

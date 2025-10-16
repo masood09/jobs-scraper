@@ -2,9 +2,39 @@ import logging
 
 from flask import Flask, jsonify, request
 from jobspy import scrape_jobs
+import pandas as pd
 
 from .auth import require_token
 from .config import DEBUG_MODE, LOG_FILE_PATH, LOG_LEVEL_VALUE, LOG_TO_FILE
+
+
+def dataframe_to_serializable_dict(df: pd.DataFrame) -> list:
+    """
+    Convert DataFrame to JSON-serializable dictionary with proper NaN handling.
+    
+    Args:
+        df: Pandas DataFrame to convert
+        
+    Returns:
+        list: List of dictionaries where NaN values are converted to None
+    """
+    # Convert DataFrame to dictionary using orient='records'
+    jobs_data = df.to_dict(orient="records")
+    
+    # Process each job to replace NaN/NaT values with None
+    processed_jobs = []
+    for job in jobs_data:
+        processed_job = {}
+        for key, value in job.items():
+            # Check if value is NaN (float) or NaT (datetime)
+            if pd.isna(value):
+                processed_job[key] = None
+            else:
+                processed_job[key] = value
+        processed_jobs.append(processed_job)
+    
+    return processed_jobs
+
 
 app = Flask(__name__)
 
@@ -99,8 +129,8 @@ def scrape_jobs_endpoint():
 
         logger.info(f"Successfully scraped {len(jobs)} jobs")
 
-        # Convert jobs to JSON-serializable format
-        jobs_data = jobs.to_dict(orient="records")
+        # Convert jobs to JSON-serializable format with proper NaN handling
+        jobs_data = dataframe_to_serializable_dict(jobs)
 
         return jsonify({"success": True, "count": len(jobs), "jobs": jobs_data})
 
