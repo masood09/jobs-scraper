@@ -43,7 +43,7 @@ def run_production():
             "--worker-class",
             "sync",
             "--timeout",
-            "30",
+            "180",
             "--access-logfile",
             "-",
             "--error-logfile",
