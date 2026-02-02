@@ -27,29 +27,23 @@ def run_production():
     print("Starting in production mode with Gunicorn...")
     os.environ["DEBUG_MODE"] = "False"
     os.environ["LOG_LEVEL"] = "INFO"
-
-    # Set environment variable to disable fork safety check (macOS fix)
     os.environ["OBJC_DISABLE_INITIALIZE_FORK_SAFETY"] = "YES"
 
-    # Use Gunicorn with the new package structure
-    subprocess.run(
-        [
-            "gunicorn",
-            "src.jobscraper.app:app",
-            "--bind",
-            "0.0.0.0:8080",
-            "--workers",
-            "1",
-            "--worker-class",
-            "sync",
-            "--timeout",
-            "180",
-            "--access-logfile",
-            "-",
-            "--error-logfile",
-            "-",
-        ]
-    )
+    cmd = [
+        "gunicorn",
+        "src.jobscraper.app:app",
+        "--bind", "0.0.0.0:8080",
+        "--workers", "1",
+        "--worker-class", "sync",
+        "--timeout", "180",
+        "--access-logfile", "-",
+        "--error-logfile", "-",
+        "--capture-output",
+    ]
+
+    # Replace the current process with gunicorn and merge stderr into stdout.
+    os.dup2(sys.stdout.fileno(), sys.stderr.fileno())
+    os.execvp(cmd[0], cmd)
 
 
 def print_usage():
