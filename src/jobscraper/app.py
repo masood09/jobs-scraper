@@ -1,4 +1,5 @@
 import logging
+import sys
 
 from flask import Flask, jsonify, request
 from jobspy import scrape_jobs
@@ -39,7 +40,20 @@ def dataframe_to_serializable_dict(df: pd.DataFrame) -> list:
 app = Flask(__name__)
 
 # Configure logging
-handlers = [logging.StreamHandler()]
+class MaxLevelFilter(logging.Filter):
+    def __init__(self, max_level: int):
+        super().__init__()
+        self.max_level = max_level
+    def filter(self, record: logging.LogRecord) -> bool:
+        return record.levelno <= self.max_level
+
+stdout_handler = logging.StreamHandler(sys.stdout)
+stdout_handler.addFilter(MaxLevelFilter(logging.WARNING))  # up to WARNING
+
+stderr_handler = logging.StreamHandler(sys.stderr)
+stderr_handler.setLevel(logging.ERROR)  # ERROR and above
+
+handlers = [stdout_handler, stderr_handler]
 
 if LOG_TO_FILE:
     handlers.append(logging.FileHandler(LOG_FILE_PATH))
